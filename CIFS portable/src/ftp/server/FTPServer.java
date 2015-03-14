@@ -39,6 +39,17 @@ public class FTPServer implements Runnable
         while(true);
     }
     
+    public FTPServer(String workingDirectory, Class authentificator, Class serverDataManager)
+    {
+        if(workingDirectory.endsWith("/"))
+            this.workingDirectory = workingDirectory.substring(0, workingDirectory.length() - 1);
+        else
+            this.workingDirectory = workingDirectory;
+        
+        this.port = null;
+        this.authentificator = authentificator;
+        this.serverDataManager = serverDataManager;
+    }
     public FTPServer(int port, String workingDirectory, Class authentificator, Class serverDataManager)
     {
         if(workingDirectory.endsWith("/"))
@@ -51,7 +62,7 @@ public class FTPServer implements Runnable
         this.serverDataManager = serverDataManager;
     }
     
-    private final int port;
+    private final Integer port;
     private final Class authentificator;
     private final Class serverDataManager;
     
@@ -73,11 +84,22 @@ public class FTPServer implements Runnable
         exit = false;
         try
         {
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Server '" + serverSocket.getLocalSocketAddress() + "' started on the port : " + port);
+            ServerSocket serverSocket;
+            if(port == null)
+                serverSocket = new ServerSocket();
+            else
+                serverSocket = new ServerSocket(port);
+            System.out.println("Server '"
+                    + serverSocket.getLocalSocketAddress()
+                    + "' started on the port : " + port);
         
             while(!exit)
-                new Thread(new FTPServerRuntime(serverSocket.accept(), this, (Authentificator)authentificator.newInstance(), (FTPServerDataManager)serverDataManager.newInstance())).start();
+                new Thread(new FTPServerRuntime(
+                        serverSocket.accept(),
+                        this,
+                        (Authentificator)authentificator.newInstance(),
+                        (FTPServerDataManager)serverDataManager.newInstance()
+                )).start();
         }
         catch (Exception ex)
         { }

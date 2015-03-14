@@ -232,11 +232,10 @@ public abstract class FTPServerDataManager
 
             sendData("total " + nbFile + "\n");
             
-            if(files != null)
-            {
+            if(nbFile > 0)
                 for(String s : files)
                     sendFileInfo(new File(localPath, s));
-            }
+            
             flushData();
             
             sendCommand(226, "Transfer completed.");

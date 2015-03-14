@@ -177,7 +177,7 @@ public class FTPServerRuntime implements Runnable
                         {
                             String fileName = getFullName(token);
 
-                            environnement.serverData.receiveFile(fileName);
+                            environnement.serverData.receiveFile(getLocalPath(environnement.currentDir, fileName));
                             break;
                         }
 

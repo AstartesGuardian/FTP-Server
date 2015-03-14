@@ -43,6 +43,7 @@ public class FTPServerData extends FTPServerDataManager
     @Override
     public boolean fileExists(File file)
     {
+        System.out.println(file);
         return file.exists();
     }
     
