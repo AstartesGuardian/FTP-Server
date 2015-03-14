@@ -1,5 +1,5 @@
 
-package ftp.server;
+package ftp.server.authentificator;
 
 public abstract class Authentificator
 {

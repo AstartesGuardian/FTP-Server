@@ -1,6 +1,8 @@
 
 package ftp.server;
 
+import ftp.server.datamanager.FTPServerDataManager;
+import ftp.server.authentificator.Authentificator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -36,13 +38,13 @@ public class FTPServerRuntime implements Runnable
     private PrintWriter out;
     private BufferedReader in;
     
-    protected void send(int code, String text)
+    public void send(int code, String text)
     {
         out.println(code + " " + text);
         System.out.println("[SENT] : " + code + " : " + text);
         System.out.flush();
     }
-    protected void error(int code, String text)
+    public void error(int code, String text)
     {
         out.println(code + " " + text);
         System.out.println("[ERROR] : " + code + " : " + text);

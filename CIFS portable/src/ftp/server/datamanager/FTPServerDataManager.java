@@ -1,6 +1,7 @@
 
-package ftp.server;
+package ftp.server.datamanager;
 
+import ftp.server.FTPServerRuntime;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
